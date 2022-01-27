@@ -1,0 +1,14 @@
+{
+  "id": "{BE2711C2-FB08-6A88-4956-88EBA9566ABA}",
+  "name": "ShairportSync",
+  "type": 3,
+  "vendor": "JP-IPS-Modules",
+  "aliases":
+  [
+    "ShairportSync"
+  ],
+  "parentRequirements": ["{042EF3A2-ECF4-404B-9FA2-42BA032F4A56}"],
+  "childRequirements": [],
+  "implemented": ["{EC09E155-355C-4DC2-95C7-5C336B1C9D48}"],
+  "prefix": "ShairportSync"
+}
