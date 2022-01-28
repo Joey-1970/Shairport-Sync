@@ -9,9 +9,15 @@
             	parent::Create();
 		$this->ConnectParent("{C6D2AEB3-6E1F-4B2E-8E69-3A1A00246850}");
             	$this->RegisterPropertyBoolean("Open", false);
-		
+		$this->RegisterPropertyString("Topic", "Topic");
 		
 		//Status-Variablen anlegen
+		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
+		$this->RegisterVariableString("Album", "Album", "", 20);
+		$this->RegisterVariableString("Title", "Titel", "", 30);
+		$this->RegisterVariableString("Genre", "Genre", "", 40);
+		
+		$this->RegisterVariableString("Songalbum", "Songalbum", "", 50);
 		
         }
        	
@@ -25,7 +31,7 @@
 		
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
-		
+		$arrayElements[] = array("name" => "Topic", "type" => "ValidationTextBox",  "caption" => "Topic"); 
 		
 		
 		$arrayElements[] = array("type" => "Label", "caption" => "_____________________________________________________________________________________________________");
@@ -73,18 +79,51 @@
 	{
 		// Empfangene Daten vom I/O
 	    	$Data = json_decode($JSONString);
-	    	$PacketType = utf8_decode($Data->PacketType);
-		$QualityOfService = utf8_decode($Data->QualityOfService);
-		$Retain = utf8_decode($Data->Retain);
+	    	$PacketType = $Data->PacketType;
+		$QualityOfService = $Data->QualityOfService;
+		$Retain = $Data->Retain;
 		$Topic = utf8_decode($Data->Topic);
 		$Payload = utf8_decode($Data->Payload);
 		
 		$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
-
+		
+		$this->ShowMQTTData($PacketType, $QualityOfService, $Retain, $Topic, $Payload);
 		
 	}
 	    
 	// Beginn der Funktionen
-	    	     
+	private function ShowMQTTData(int $PacketType, int $QualityOfService, Bool $Retain, String $Topic, String $Payload)
+	{
+		$MainTopic = $this->ReadPropertyString("Topic");
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			switch($Topic) {
+				case $MainTopic."/core/asar": // Artist
+					$this->SetValue("Artist"), $Payload);
+					break;
+				case $MainTopic."/core/asal": // Album
+					$this->SetValue("Album"), $Payload);
+					break;
+				case $MainTopic."/core/minm": // Titel
+					$this->SetValue("Title"), $Payload);
+					break;
+				case $MainTopic."/core/asgn": // Genre
+					$this->SetValue("Genre"), $Payload);
+					break;
+				case $MainTopic."/core/asal": // Songalbum
+					$this->SetValue("Songalbum"), $Payload);
+					break;
+			default:
+			    throw new Exception("Invalid Ident");
+			}
+		}
+	}
+	 
+	
+	/*
+	asfm -- "format"
+	pvol -- "volume"
+	clip -- "client_ip"   
+	 */   
+	    
 }
 ?>
