@@ -169,7 +169,28 @@ pcen -- a picture has been sent. The RTP timestamp associated with it is include
 snam -- a device e.g. "Joe's iPhone" has started a play session. Specifically, it's the "X-Apple-Client-Name" string.
 snua -- a "user agent" e.g. "iTunes/12..." has started a play session. Specifically, it's the "User-Agent" string.
 stal -- this is an error message meaning that reception of a large piece of metadata, usually a large picture, has stalled; bad things may happen.
+
+
+
+char *commands[] = {"command",    "beginff",       "beginrew",   "mutetoggle", "nextitem",
+                      "previtem",   "pause",         "playpause",  "play",       "stop",
+                      "playresume", "shuffle_songs", "volumedown", "volumeup",   NULL};
+		      
+		      
+		      
 	 */   
+	    
+	public function SendCommand(String $Command)
+	{
+		$MainTopic = $this->ReadPropertyString("Topic");
+		If ($this->ReadPropertyBoolean("Open") == true) {
+			$Response = $this->SendDataToParent(json_encode(Array("DataID"=> "{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}", "PacketType" => 3, "QualityOfService" => 0, "Retain" => false, "Topic" => $MainTopic."/remote".$Command, "Payload" => $Command )));
+				
+		}
+		
+
+			
+	}
 	private function RegisterMediaObject($Name, $Ident, $Typ, $Parent, $Position, $Cached, $Filename)
 	{
 		$MediaID = @$this->GetIDForIdent($Ident);
