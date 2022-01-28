@@ -98,19 +98,19 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			switch($Topic) {
 				case $MainTopic."/core/asar": // Artist
-					$this->SetValue("Artist"), $Payload);
+					$this->SetValue("Artist", $Payload);
 					break;
 				case $MainTopic."/core/asal": // Album
-					$this->SetValue("Album"), $Payload);
+					$this->SetValue("Album", $Payload);
 					break;
 				case $MainTopic."/core/minm": // Titel
-					$this->SetValue("Title"), $Payload);
+					$this->SetValue("Title", $Payload);
 					break;
 				case $MainTopic."/core/asgn": // Genre
-					$this->SetValue("Genre"), $Payload);
+					$this->SetValue("Genre", $Payload);
 					break;
 				case $MainTopic."/core/asal": // Songalbum
-					$this->SetValue("Songalbum"), $Payload);
+					$this->SetValue("Songalbum", $Payload);
 					break;
 			default:
 			    throw new Exception("Invalid Ident");
