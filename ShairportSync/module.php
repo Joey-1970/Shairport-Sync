@@ -134,7 +134,8 @@
 					
 					
 				case $MainTopic."/ssnc/PICT": // Cover
-					IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), $Payload."jpg");  //Bild Base64 codieren und ablegen
+					$Content = $Payload."jpg"; 
+					IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Content));  //Bild Base64 codieren und ablegen
 					IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 					break;
 				case $MainTopic."/ssnc/pbeg": // Play Stream Begin
