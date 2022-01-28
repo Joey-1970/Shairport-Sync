@@ -7,8 +7,8 @@
   [
     "ShairportSync"
   ],
-  "parentRequirements": ["{042EF3A2-ECF4-404B-9FA2-42BA032F4A56}"],
+  "parentRequirements": ["{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}"],
   "childRequirements": [],
-  "implemented": ["{EC09E155-355C-4DC2-95C7-5C336B1C9D48}"],
+  "implemented": ["{7F7632D9-FA40-4F38-8DEA-C83CD4325A32}"],
   "prefix": "ShairportSync"
 }
