@@ -95,7 +95,7 @@
 		$Topic = utf8_decode($Data->Topic);
 		$Payload = utf8_decode($Data->Payload);
 		
-		$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
+		//$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
 		
 		$this->ShowMQTTData($PacketType, $QualityOfService, $Retain, $Topic, $Payload);
 		
@@ -119,24 +119,55 @@
 				case $MainTopic."/core/asgn": // Genre
 					$this->SetValue("Genre", $Payload);
 					break;
+				case $MainTopic."/core/asfm": // Format
+					
+					break;
+				case $MainTopic."/core/pvol": // Volume
+					
+					break;
+				case $MainTopic."/core/clip": //Client IP
+					
+					break;
 				case $MainTopic."/core/asal": // Songalbum
 					$this->SetValue("Songalbum", $Payload);
-					break;
+					break;	
+					
+					
 				case $MainTopic."/ssnc/PICT": // Cover
 					IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), $Payload."jpg");  //Bild Base64 codieren und ablegen
 					IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 					break;
-			default:
-			    //throw new Exception("Invalid Ident");
+				case $MainTopic."/ssnc/pbeg": // Play Stream Begin
+					$this->SendDebug("ShowMQTTData", "Play Stream Begin", 0);
+					break;
+				case $MainTopic."/ssnc/pend": // Play Stream End
+					$this->SendDebug("ShowMQTTData", "Play Stream End", 0);
+					break;
+				case $MainTopic."/ssnc/pfls": // Play Stream Flush
+					$this->SendDebug("ShowMQTTData", "Play Stream Flush", 0);
+					break;
+				case $MainTopic."/ssnc/prsm": // Play Stream Resume
+					$this->SendDebug("ShowMQTTData", "Play Stream Resume", 0);
+					break;
 			}
 		}
 	}
 	 
 	
 	/*
-	asfm -- "format"
-	pvol -- "volume"
-	clip -- "client_ip"   
+	
+
+
+p
+pvol -- play volume. The volume is sent as a string -- "airplay_volume,volume,lowest_volume,highest_volume", where "volume", "lowest_volume" and "highest_volume" are given in dB. The "airplay_volume" is what's sent by the source (e.g. iTunes) to the player, and is from 0.00 down to -30.00, with -144.00 meaning "mute". This is linear on the volume control slider of iTunes or iOS AirPlay. If the volume setting is being ignored by Shairport Sync itself, the volume, lowest_volume and highest_volume values are zero.
+prgr -- progress -- this is metadata from AirPlay consisting of RTP timestamps for the start of the current play sequence, the current play point and the end of the play sequence.
+mdst -- a sequence of metadata is about to start. The RTP timestamp associated with the metadata sequence is included as data, if available.
+mden -- a sequence of metadata has ended. The RTP timestamp associated with the metadata sequence is included as data, if available.
+pcst -- a picture is about to be sent. The RTP timestamp associated with it is included as data, if available.
+pcen -- a picture has been sent. The RTP timestamp associated with it is included as data, if available.
+snam -- a device e.g. "Joe's iPhone" has started a play session. Specifically, it's the "X-Apple-Client-Name" string.
+snua -- a "user agent" e.g. "iTunes/12..." has started a play session. Specifically, it's the "User-Agent" string.
+stal -- this is an error message meaning that reception of a large piece of metadata, usually a large picture, has stalled; bad things may happen.
 	 */   
 	private function RegisterMediaObject($Name, $Ident, $Typ, $Parent, $Position, $Cached, $Filename)
 	{
