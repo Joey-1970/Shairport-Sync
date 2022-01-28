@@ -127,7 +127,7 @@
 					IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 					break;
 			default:
-			    throw new Exception("Invalid Ident");
+			    //throw new Exception("Invalid Ident");
 			}
 		}
 	}
