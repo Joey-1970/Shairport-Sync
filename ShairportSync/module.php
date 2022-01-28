@@ -13,7 +13,11 @@
             	$this->RegisterPropertyBoolean("Open", false);
 		$this->RegisterPropertyString("Topic", "Topic");
 		
-		//Status-Variablen anlegen
+		// Profile anlegen
+		$this->RegisterMediaObject("Cover_".$this->InstanceID, "Cover_".$this->InstanceID, 1, $this->InstanceID, 200, true, "Cover.png");
+
+		
+		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
 		$this->RegisterVariableString("Album", "Album", "", 20);
 		$this->RegisterVariableString("Title", "Titel", "", 30);
@@ -50,6 +54,10 @@
                 // Diese Zeile nicht löschen
                 parent::ApplyChanges();
 		
+		$Content = file_get_contents(__DIR__ . '/../imgs/AirPlay.png'); 
+		IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Content));  //Bild Base64 codieren und ablegen
+		IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
+
 		
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
@@ -126,6 +134,25 @@
 	pvol -- "volume"
 	clip -- "client_ip"   
 	 */   
-	    
+	private function RegisterMediaObject($Name, $Ident, $Typ, $Parent, $Position, $Cached, $Filename)
+	{
+		$MediaID = @$this->GetIDForIdent($Ident);
+		if($MediaID === false) {
+		    	$MediaID = 0;
+		}
+		
+		if ($MediaID == 0) {
+			 // Image im MedienPool anlegen
+			$MediaID = IPS_CreateMedia($Typ); 
+			// Medienobjekt einsortieren unter Kategorie $catid
+			IPS_SetParent($MediaID, $Parent);
+			IPS_SetIdent($MediaID, $Ident);
+			IPS_SetName($MediaID, $Name);
+			IPS_SetPosition($MediaID, $Position);
+                    	IPS_SetMediaCached($MediaID, $Cached);
+			$ImageFile = IPS_GetKernelDir()."media".DIRECTORY_SEPARATOR.$Filename;  // Image-Datei
+			IPS_SetMediaFile($MediaID, $ImageFile, false);    // Image im MedienPool mit Image-Datei verbinden
+		}  
+	}        
 }
 ?>
