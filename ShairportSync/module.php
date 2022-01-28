@@ -86,5 +86,5 @@
 	    
 	// Beginn der Funktionen
 	    	     
-
+}
 ?>
