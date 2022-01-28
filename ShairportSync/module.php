@@ -2,6 +2,8 @@
     // Klassendefinition
     class ShairportSync extends IPSModule 
     {
+	// https://github.com/mikebrady/shairport-sync/blob/master/MQTT.md
+	    
 	// Überschreibt die interne IPS_Create($id) Funktion
         public function Create() 
         {
