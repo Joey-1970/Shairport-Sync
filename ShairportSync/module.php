@@ -69,6 +69,20 @@
 	    	}
 	}
 	    
+	public function ReceiveData($JSONString) {
+		// Empfangene Daten vom I/O
+	    	$Data = json_decode($JSONString);
+	    	$PacketType = utf8_decode($Data->PacketType);
+		$QualityOfService = utf8_decode($Data->QualityOfService);
+		$Retain = utf8_decode($Data->Retain);
+		$Topic = utf8_decode($Data->Topic);
+		$Payload = utf8_decode($Data->Payload);
+		
+		$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
+
+		
+	}
+	    
 	// Beginn der Funktionen
 	    
 	
