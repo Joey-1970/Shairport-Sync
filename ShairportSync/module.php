@@ -69,7 +69,8 @@
 	    	}
 	}
 	    
-	public function ReceiveData($JSONString) {
+	public function ReceiveData($JSONString) 
+	{
 		// Empfangene Daten vom I/O
 	    	$Data = json_decode($JSONString);
 	    	$PacketType = utf8_decode($Data->PacketType);
@@ -84,10 +85,6 @@
 	}
 	    
 	// Beginn der Funktionen
-	    
-	
-	      
-
-
+	    	     
 
 ?>
