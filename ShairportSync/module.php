@@ -122,6 +122,10 @@
 				case $MainTopic."/core/asal": // Songalbum
 					$this->SetValue("Songalbum", $Payload);
 					break;
+				case $MainTopic."/ssnc/PICT": // Cover
+					IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Payload."jpg"));  //Bild Base64 codieren und ablegen
+					IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
+					break;
 			default:
 			    throw new Exception("Invalid Ident");
 			}
