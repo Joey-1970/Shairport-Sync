@@ -188,6 +188,19 @@
 				case $MainTopic."/ssnc/prsm": // Play Stream Resume
 					$this->SendDebug("ShowMQTTData", "Play Stream Resume", 0);
 					break;
+				case $MainTopic."/ssnc/prgr": // Progress
+					$this->SendDebug("ShowMQTTData", "Progess: ".$Payload , 0);
+					$Parts = explode("/", $Payload);
+					If (count($Parts) == 3) {
+						$StartCurrentPlaySequence = $Parts[0];
+						$CurrentPlayPoint = $Parts[1];
+						$EndCurrentPlaySequence = $Parts[2];
+						$this->SendDebug("ShowMQTTData", "Progess: ".$StartCurrentPlaySequence.":".$CurrentPlayPoint.":".$EndCurrentPlaySequence, 0);
+						
+					} else {
+						$this->SendDebug("ShowMQTTData", "Progess Fehler: ".count($Parts) , 0);
+					}
+					break;
 			}
 		}
 	}
