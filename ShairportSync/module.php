@@ -79,7 +79,6 @@
 		
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			
 			If ($this->GetStatus() <> 102) {
 				$this->SetStatus(102);
 			}
