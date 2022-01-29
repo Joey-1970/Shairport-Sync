@@ -29,7 +29,7 @@
 		$this->RegisterProfileFloat("ShairportSync.VolumeIntensity", "Intensity", "", " dB", -30, 0, 0.1, 2);
 		
 		// Status-Variablen anlegen
-		$this->RegisterVariableBoolean("ActiveConnecion", "Aktive Verbindung", "", 10);
+		$this->RegisterVariableBoolean("ActiveConnecion", "Aktive Verbindung", "~Switch", 10);
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
 		$this->RegisterVariableString("Album", "Album", "", 20);
 		$this->RegisterVariableString("Title", "Titel", "", 30);
