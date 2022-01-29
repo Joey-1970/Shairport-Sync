@@ -96,8 +96,8 @@
 		}
 		$QualityOfService = $Data->QualityOfService;
 		$Retain = $Data->Retain;
-		$Topic = utf8_decode($Data->Topic);
-		$Payload = utf8_decode($Data->Payload);
+		$Topic = $Data->Topic;
+		$Payload = $Data->Payload;
 		
 		//$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
 		
