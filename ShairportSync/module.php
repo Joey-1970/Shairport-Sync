@@ -138,6 +138,7 @@
 					
 					
 				case $MainTopic."/ssnc/PICT": // Cover
+					$this->SendDebug("ShowMQTTData", "Länge Payload: ".strlen($Payload), 0);
 					$ImageData = array();
 					$ImageData = @getimagesize('data://text/plain;base64' . base64_encode($Payload));
 					If (is_array($ImageData) == true) {
