@@ -19,7 +19,7 @@
 		$this->RegisterProfileInteger("ShairportSync.Remote", "Remote", "", "", 0, 13, 0);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "command", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 1, "beginrew", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 2, "mutetoggle", "Remote", -1);
+		
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 3, "nextitem", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 4, "previtem", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 5, "pause", "Remote", -1);
@@ -28,9 +28,12 @@
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 8, "stop", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 9, "playresume", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 10, "shuffle_songs", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 11, "volumedown", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 12, "volumeup", "Remote", -1);
 		
+		
+		$this->RegisterProfileInteger("ShairportSync.Volume", "Intensity", "", "", 0, 13, 0);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "+", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 1, "-", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 2, "Mute", "Intensity", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
@@ -42,6 +45,9 @@
 		
 		$this->RegisterVariableInteger("Remote", "Remote", "ShairportSync.Remote", 80);
 		$this->EnableAction("Remote");
+		
+		$this->RegisterVariableInteger("Volume", "Volume", "ShairportSync.Volume", 90);
+		$this->EnableAction("Volume");
         }
        	
 	public function GetConfigurationForm() { 
@@ -100,6 +106,14 @@
 			    	If ($this->ReadPropertyBoolean("Open") == true) {
 					$Commands = array("command", "beginrew", "mutetoggle", "nextitem", "previtem", "pause", "playpause", "play", "stop", "playresume", "shuffle_songs", "volumedown", "volumeup");
 					$this->SendCommand($Commands[$Value]);
+					$this->SetValue($Ident, $Value);
+			    	}
+	            		break;
+			case "Volume":
+			    	If ($this->ReadPropertyBoolean("Open") == true) {
+					$Commands = array("volumeup", "volumedown", "mutetoggle");
+					$this->SendCommand($Commands[$Value]);
+					$this->SetValue($Ident, $Value);
 			    	}
 	            		break;
 	        default:
