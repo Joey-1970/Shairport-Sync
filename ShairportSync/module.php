@@ -89,7 +89,11 @@
 	{
 		// Empfangene Daten vom I/O
 	    	$Data = json_decode($JSONString);
-	    	$PacketType = $Data->PacketType;
+		if (isset($Data->PacketType)) {
+	    		$PacketType = $Data->PacketType;
+		} else {
+			return;
+		}
 		$QualityOfService = $Data->QualityOfService;
 		$Retain = $Data->Retain;
 		$Topic = utf8_decode($Data->Topic);
