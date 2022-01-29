@@ -26,6 +26,8 @@
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 1, "Mute", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 2, "+", "Intensity", -1);
 		
+		$this->RegisterProfileInteger("ShairportSync.VolumeIntensity", "Intensity", "", " dB", -30, 0, 1);
+		
 		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
 		$this->RegisterVariableString("Album", "Album", "", 20);
@@ -39,6 +41,8 @@
 		
 		$this->RegisterVariableInteger("Volume", "Volume", "ShairportSync.Volume", 90);
 		$this->EnableAction("Volume");
+		
+		$this->RegisterVariableInteger("VolumeIntensity", "Volume", "ShairportSync.VolumeIntensity", 100);
         }
        	
 	public function GetConfigurationForm() { 
@@ -208,6 +212,7 @@
 						$LowestVolume = floatval($Parts[2]);
 						$HighestVolume = floatval($Parts[3]);
 						$this->SendDebug("ShowMQTTData", "Volume: ".$AirplayVolume.":".$Volume.":".$LowestVolume.":".$HighestVolume, 0);
+						$this->SetValue("VolumeIntensity", $AirplayVolume);
 						
 					} else {
 						$this->SendDebug("ShowMQTTData", "Volume Fehler: ".count($Parts) , 0);
