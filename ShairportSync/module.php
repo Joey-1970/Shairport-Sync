@@ -97,14 +97,14 @@
 			    	If ($this->ReadPropertyBoolean("Open") == true) {
 					$Commands = array("nextitem", "playpause", "previtem");
 					$this->SendCommand($Commands[$Value]);
-					$this->SetValue($Ident, $Value);
+					$this->SetValue($Ident, 1);
 			    	}
 	            		break;
 			case "Volume":
 			    	If ($this->ReadPropertyBoolean("Open") == true) {
 					$Commands = array("volumedown", "mutetoggle", "volumeup");
 					$this->SendCommand($Commands[$Value]);
-					$this->SetValue($Ident, $Value);
+					$this->SetValue($Ident, 1);
 			    	}
 	            		break;
 	        default:
