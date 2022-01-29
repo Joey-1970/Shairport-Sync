@@ -189,7 +189,6 @@
 					$this->SendDebug("ShowMQTTData", "Play Stream Resume", 0);
 					break;
 				case $MainTopic."/ssnc/prgr": // Progress
-					$this->SendDebug("ShowMQTTData", "Progess: ".$Payload , 0);
 					$Parts = explode("/", $Payload);
 					If (count($Parts) == 3) {
 						$StartCurrentPlaySequence = $Parts[0];
@@ -199,6 +198,19 @@
 						
 					} else {
 						$this->SendDebug("ShowMQTTData", "Progess Fehler: ".count($Parts) , 0);
+					}
+					break;
+				case $MainTopic."/ssnc/pvol": // Volume
+					$Parts = explode("/", $Payload);
+					If (count($Parts) == 4) {
+						$AirplayVolume = floatval($Parts[0]);
+						$Volume = floatval($Parts[1]);
+						$LowestVolume = floatval($Parts[2]);
+						$HighestVolume = floatval($Parts[3]);
+						$this->SendDebug("ShowMQTTData", "Volume: ".$AirplayVolume.":".$Volume.":".$LowestVolume.":".$HighestVolume, 0);
+						
+					} else {
+						$this->SendDebug("ShowMQTTData", "Volume Fehler: ".count($Parts) , 0);
 					}
 					break;
 			}
