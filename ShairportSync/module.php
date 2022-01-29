@@ -15,7 +15,22 @@
 		
 		// Profile anlegen
 		$this->RegisterMediaObject("Cover_".$this->InstanceID, "Cover_".$this->InstanceID, 1, $this->InstanceID, 200, true, "Cover.png");
-
+		
+		$this->RegisterProfileInteger("ShairportSync.Remote", "Remote", "", "", 0, 13, 1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "command", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 1, "beginrew", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 2, "mutetoggle", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 3, "nextitem", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 4, "previtem", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 5, "pause", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 6, "playpause", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 7, "play", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 8, "stop", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 9, "playresume", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 10, "shuffle_songs", "Remote", -1);
+		PS_SetVariableProfileAssociation("ShairportSync.Remote", 11, "volumedown", "Remote", -1);
+		PS_SetVariableProfileAssociation("ShairportSync.Remote", 12, "volumeup", "Remote", -1);
+		
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
@@ -25,6 +40,8 @@
 		
 		$this->RegisterVariableString("Songalbum", "Songalbum", "", 50);
 		
+		$this->RegisterVariableString("Remote", "Remote", "ShairportSync.Remote", 80);
+		$this->EnableAction("Remote");
         }
        	
 	public function GetConfigurationForm() { 
@@ -79,7 +96,11 @@
 	public function RequestAction($Ident, $Value) 
 	{
   		switch($Ident) {
-	      
+	      		case "Remote":
+			    	If ($this->ReadPropertyBoolean("Open") == true) {
+					$this->SendCommand($Value);
+			    	}
+	            		break;
 	        default:
 	            throw new Exception("Invalid Ident");
 	    	}
