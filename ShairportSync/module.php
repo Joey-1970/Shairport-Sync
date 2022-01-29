@@ -26,7 +26,7 @@
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 1, "Mute", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 2, "+", "Intensity", -1);
 		
-		$this->RegisterProfileInteger("ShairportSync.VolumeIntensity", "Intensity", "", " dB", -30, 0, 1);
+		$this->RegisterProfileInteger("ShairportSync.VolumeIntensity", "Intensity", "", " dB", -30, 0, 0.01);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
