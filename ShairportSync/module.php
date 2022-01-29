@@ -201,7 +201,7 @@
 					}
 					break;
 				case $MainTopic."/ssnc/pvol": // Volume
-					$Parts = explode("/", $Payload);
+					$Parts = explode(",", $Payload);
 					If (count($Parts) == 4) {
 						$AirplayVolume = floatval($Parts[0]);
 						$Volume = floatval($Parts[1]);
