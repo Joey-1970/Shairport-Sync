@@ -25,8 +25,8 @@
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 0, "-", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 1, "Mute", "Intensity", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 2, "+", "Intensity", -1);
-		
-		$this->RegisterProfileInteger("ShairportSync.VolumeIntensity", "Intensity", "", " dB", -30, 0, 0.01);
+			
+		$this->RegisterProfileFloat("ShairportSync.VolumeIntensity", "Intensity", "", " dB", -30, 0, 0.1, 2);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
@@ -42,7 +42,7 @@
 		$this->RegisterVariableInteger("Volume", "Volume", "ShairportSync.Volume", 90);
 		$this->EnableAction("Volume");
 		
-		$this->RegisterVariableInteger("VolumeIntensity", "Volume", "ShairportSync.VolumeIntensity", 100);
+		$this->RegisterVariableFloat("VolumeIntensity", "Volume", "ShairportSync.VolumeIntensity", 100);
         }
        	
 	public function GetConfigurationForm() { 
@@ -295,6 +295,24 @@ char *commands[] = {"command",    "beginff",       "beginrew",   "mutetoggle", "
 	        IPS_SetVariableProfileIcon($Name, $Icon);
 	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
 	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);        
+	}
+	    
+	private function RegisterProfileFloat($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
+	{
+	        if (!IPS_VariableProfileExists($Name))
+	        {
+	            IPS_CreateVariableProfile($Name, 2);
+	        }
+	        else
+	        {
+	            $profile = IPS_GetVariableProfile($Name);
+	            if ($profile['ProfileType'] != 2)
+	                throw new Exception("Variable profile type does not match for profile " . $Name);
+	        }
+	        IPS_SetVariableProfileIcon($Name, $Icon);
+	        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+	        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+	        IPS_SetVariableProfileDigits($Name, $Digits);
 	}
 }
 ?>
