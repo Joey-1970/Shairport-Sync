@@ -31,9 +31,9 @@
 		
 		
 		$this->RegisterProfileInteger("ShairportSync.Volume", "Intensity", "", "", 0, 3, 0);
-		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 0, "+", "Intensity", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 1, "-", "Intensity", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 2, "Mute", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 0, "-", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 1, "Mute", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 2, "+", "Intensity", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
@@ -111,7 +111,7 @@
 	            		break;
 			case "Volume":
 			    	If ($this->ReadPropertyBoolean("Open") == true) {
-					$Commands = array("volumeup", "volumedown", "mutetoggle");
+					$Commands = array("volumedown", "mutetoggle", "volumeup");
 					$this->SendCommand($Commands[$Value]);
 					$this->SetValue($Ident, $Value);
 			    	}
