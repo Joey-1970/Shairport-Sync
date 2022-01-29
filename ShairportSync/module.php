@@ -16,19 +16,10 @@
 		// Profile anlegen
 		$this->RegisterMediaObject("Cover_".$this->InstanceID, "Cover_".$this->InstanceID, 1, $this->InstanceID, 200, true, "Cover.png");
 		
-		$this->RegisterProfileInteger("ShairportSync.Remote", "Remote", "", "", 0, 13, 0);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "command", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 1, "beginrew", "Remote", -1);
-		
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 3, "nextitem", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 4, "previtem", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 5, "pause", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 6, "playpause", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 7, "play", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 8, "stop", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 9, "playresume", "Remote", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 10, "shuffle_songs", "Remote", -1);
-		
+		$this->RegisterProfileInteger("ShairportSync.Remote", "Remote", "", "", 0, 3, 0);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "I<", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 1, ">/II", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 2, ">I", "Remote", -1);
 		
 		$this->RegisterProfileInteger("ShairportSync.Volume", "Intensity", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 0, "-", "Intensity", -1);
@@ -104,7 +95,7 @@
   		switch($Ident) {
 	      		case "Remote":
 			    	If ($this->ReadPropertyBoolean("Open") == true) {
-					$Commands = array("command", "beginrew", "mutetoggle", "nextitem", "previtem", "pause", "playpause", "play", "stop", "playresume", "shuffle_songs", "volumedown", "volumeup");
+					$Commands = array("nextitem", "playpause", "previtem");
 					$this->SendCommand($Commands[$Value]);
 					$this->SetValue($Ident, $Value);
 			    	}
