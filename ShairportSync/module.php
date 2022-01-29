@@ -138,9 +138,9 @@
 					
 					
 				case $MainTopic."/ssnc/PICT": // Cover
-					$ImagaData = "";
-					//$ImagaData = @getimagesize('data://text/plain;base64' . base64_encode($Payload));
-					//$this->SendDebug("ShowMQTTData", "Coverformat: ".$ImageData['mime'], 0);
+					$ImageData = array();
+					$ImageData = @getimagesize('data://text/plain;base64' . base64_encode($Payload));
+					$this->SendDebug("ShowMQTTData", "Coverformat: ".$ImageData['mime'], 0);
 					IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Payload));  //Bild Base64 codieren und ablegen
 					IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 					break;
