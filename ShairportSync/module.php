@@ -195,7 +195,7 @@ char *commands[] = {"command",    "beginff",       "beginrew",   "mutetoggle", "
 	{
 		$MainTopic = $this->ReadPropertyString("Topic");
 		If ($this->ReadPropertyBoolean("Open") == true) {
-			$Response = $this->SendDataToParent(json_encode(Array("DataID"=> "{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}", "PacketType" => 3, "QualityOfService" => 0, "Retain" => false, "Topic" => $MainTopic."/remote".$Command, "Payload" => $Command )));
+			$Response = $this->SendDataToParent(json_encode(Array("DataID"=> "{043EA491-0325-4ADD-8FC2-A30C8EEB4D3F}", "PacketType" => 3, "QualityOfService" => 0, "Retain" => false, "Topic" => $MainTopic."/remote", "Payload" => $Command )));
 				
 		}
 		
