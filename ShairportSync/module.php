@@ -29,6 +29,7 @@
 		$this->RegisterProfileFloat("ShairportSync.VolumeIntensity", "Intensity", "", " dB", -30, 0, 0.1, 2);
 		
 		// Status-Variablen anlegen
+		$this->RegisterVariableBoolean("ActiveConnecion", "Aktive Verbindung", "", 10);
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
 		$this->RegisterVariableString("Album", "Album", "", 20);
 		$this->RegisterVariableString("Title", "Titel", "", 30);
@@ -76,7 +77,7 @@
 		IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Content));  //Bild Base64 codieren und ablegen
 		IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 
-		
+		$this->SetValue("ActiveConnecion", false);
 		
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			If ($this->GetStatus() <> 102) {
@@ -141,6 +142,12 @@
 		$MainTopic = $this->ReadPropertyString("Topic");
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			switch($Topic) {
+				case $MainTopic."/active_end": // Ende der aktiven Verbindung
+					$this->SetValue("ActiveConnecion", false);
+					break;
+				case $MainTopic."/active_start": // Beginn der aktiven Verbindung
+					$this->SetValue("ActiveConnecion", true);
+					break;
 				case $MainTopic."/core/asar": // Artist
 					$this->SetValue("Artist", $Payload);
 					break;
