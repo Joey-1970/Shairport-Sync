@@ -30,10 +30,10 @@
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 10, "shuffle_songs", "Remote", -1);
 		
 		
-		$this->RegisterProfileInteger("ShairportSync.Volume", "Intensity", "", "", 0, 13, 0);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "+", "Intensity", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 1, "-", "Intensity", -1);
-		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 2, "Mute", "Intensity", -1);
+		$this->RegisterProfileInteger("ShairportSync.Volume", "Intensity", "", "", 0, 3, 0);
+		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 0, "+", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 1, "-", "Intensity", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Volume", 2, "Mute", "Intensity", -1);
 		
 		// Status-Variablen anlegen
 		$this->RegisterVariableString("Artist", "Interpret", "", 10);	
