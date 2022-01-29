@@ -16,7 +16,7 @@
 		// Profile anlegen
 		$this->RegisterMediaObject("Cover_".$this->InstanceID, "Cover_".$this->InstanceID, 1, $this->InstanceID, 200, true, "Cover.png");
 		
-		$this->RegisterProfileInteger("ShairportSync.Remote", "Remote", "", "", 0, 13, 1);
+		$this->RegisterProfileInteger("ShairportSync.Remote", "Remote", "", "", 0, 13, 0);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "command", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 1, "beginrew", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 2, "mutetoggle", "Remote", -1);
