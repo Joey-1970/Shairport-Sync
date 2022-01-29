@@ -40,7 +40,7 @@
 		
 		$this->RegisterVariableString("Songalbum", "Songalbum", "", 50);
 		
-		$this->RegisterVariableString("Remote", "Remote", "ShairportSync.Remote", 80);
+		$this->RegisterVariableInteger("Remote", "Remote", "ShairportSync.Remote", 80);
 		$this->EnableAction("Remote");
         }
        	
