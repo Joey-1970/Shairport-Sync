@@ -28,8 +28,8 @@
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 8, "stop", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 9, "playresume", "Remote", -1);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 10, "shuffle_songs", "Remote", -1);
-		PS_SetVariableProfileAssociation("ShairportSync.Remote", 11, "volumedown", "Remote", -1);
-		PS_SetVariableProfileAssociation("ShairportSync.Remote", 12, "volumeup", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 11, "volumedown", "Remote", -1);
+		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 12, "volumeup", "Remote", -1);
 		
 		
 		// Status-Variablen anlegen
