@@ -98,7 +98,8 @@
   		switch($Ident) {
 	      		case "Remote":
 			    	If ($this->ReadPropertyBoolean("Open") == true) {
-					$this->SendCommand($Value);
+					$Commands = array("command", "beginrew", "mutetoggle", "nextitem", "previtem", "pause", "playpause", "play", "stop", "playresume", "shuffle_songs", "volumedown", "volumeup");
+					$this->SendCommand($Commands[$Value]);
 			    	}
 	            		break;
 	        default:
