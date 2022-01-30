@@ -121,14 +121,14 @@
 		// Empfangene Daten vom I/O
 	    	$Data = json_decode($JSONString);
 		if (isset($Data->PacketType)) {
-	    		$PacketType = $Data->PacketType;
+	    		$PacketType = utf8_decode($Data->PacketType);
 		} else {
 			return;
 		}
-		$QualityOfService = $Data->QualityOfService;
-		$Retain = $Data->Retain;
-		$Topic = $Data->Topic;
-		$Payload = $Data->Payload;
+		$QualityOfService = utf8_decode($Data->QualityOfService);
+		$Retain = utf8_decode($Data->Retain);
+		$Topic = utf8_decode($Data->Topic);
+		$Payload = utf8_decode($Data->Payload);
 		
 		//$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
 		
