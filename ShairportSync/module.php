@@ -143,34 +143,54 @@
 		If ($this->ReadPropertyBoolean("Open") == true) {
 			switch($Topic) {
 				case $MainTopic."/active_end": // Ende der aktiven Verbindung
-					$this->SetValue("ActiveConnecion", false);
+					If ($this->GetValue("ActiveConnecion") == true) {
+						$this->SetValue("ActiveConnecion", false);
+						$this->SetValue("Artist", "-");
+						$this->SetValue("Album", "-");
+						$this->SetValue("Title", "-");
+						$this->SetValue("Genre", "-");
+						$this->SetValue("Songalbum", "-");
+						$this->SetValue("VolumeIntensity", 0);
+						$Content = file_get_contents(__DIR__ . '/../imgs/AirPlay.png'); 
+						IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Content));  //Bild Base64 codieren und ablegen
+						IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
+					}
 					break;
 				case $MainTopic."/active_start": // Beginn der aktiven Verbindung
-					$this->SetValue("ActiveConnecion", true);
+					If ($this->GetValue("ActiveConnecion") == false) {
+						$this->SetValue("ActiveConnecion", true);
+					}
 					break;
 				case $MainTopic."/core/asar": // Artist
-					$this->SetValue("Artist", $Payload);
+					If ($this->GetValue("Artist") <> $Payload) {
+						$this->SetValue("Artist", $Payload);
+					}
 					break;
 				case $MainTopic."/core/asal": // Album
-					$this->SetValue("Album", $Payload);
+					If ($this->GetValue("Album") <> $Payload) {
+						$this->SetValue("Album", $Payload);
+					}
 					break;
 				case $MainTopic."/core/minm": // Titel
-					$this->SetValue("Title", $Payload);
+					If ($this->GetValue("Title") <> $Payload) {
+						$this->SetValue("Title", $Payload);
+					}
 					break;
 				case $MainTopic."/core/asgn": // Genre
-					$this->SetValue("Genre", $Payload);
+					If ($this->GetValue("Genre") <> $Payload) {
+						$this->SetValue("Genre", $Payload);
+					}
 					break;
 				case $MainTopic."/core/asfm": // Format
-					
-					break;
-				case $MainTopic."/core/pvol": // Volume
 					
 					break;
 				case $MainTopic."/core/clip": //Client IP
 					
 					break;
 				case $MainTopic."/core/asal": // Songalbum
-					$this->SetValue("Songalbum", $Payload);
+					If ($this->GetValue("Songalbum") <> $Payload) {
+						$this->SetValue("Songalbum", $Payload);
+					}
 					break;	
 					
 					
@@ -180,11 +200,12 @@
 					$ImageData = @getimagesize('data://text/plain;base64' . base64_encode($Payload));
 					If (is_array($ImageData) == true) {
 						$this->SendDebug("ShowMQTTData", "Coverformat: ".$ImageData['mime'], 0);
+						IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Payload));  //Bild Base64 codieren und ablegen
+						IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 					} else {
 						$this->SendDebug("ShowMQTTData", "Coverformat: keine Daten erhalten", 0);
 					}
-					IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Payload));  //Bild Base64 codieren und ablegen
-					IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
+					
 					break;
 				case $MainTopic."/ssnc/pbeg": // Play Stream Begin
 					$this->SendDebug("ShowMQTTData", "Play Stream Begin", 0);
@@ -218,7 +239,9 @@
 						$LowestVolume = floatval($Parts[2]);
 						$HighestVolume = floatval($Parts[3]);
 						$this->SendDebug("ShowMQTTData", "Volume: ".$AirplayVolume.":".$Volume.":".$LowestVolume.":".$HighestVolume, 0);
-						$this->SetValue("VolumeIntensity", $AirplayVolume);
+						If ($this->GetValue("VolumeIntensity") <> $AirplayVolume) {
+							$this->SetValue("VolumeIntensity", $AirplayVolume);
+						}
 						
 					} else {
 						$this->SendDebug("ShowMQTTData", "Volume Fehler: ".count($Parts) , 0);
