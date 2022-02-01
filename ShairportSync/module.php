@@ -59,7 +59,6 @@
 		$arrayElements[] = array("name" => "Topic", "type" => "ValidationTextBox",  "caption" => "Topic"); 
 		
 		
-		$arrayElements[] = array("type" => "Label", "caption" => "_____________________________________________________________________________________________________");
 		$arrayActions = array(); 
 		$arrayActions[] = array("type" => "Label", "label" => "Test Center"); 
 		$arrayActions[] = array("type" => "TestCenter", "name" => "TestCenter");
