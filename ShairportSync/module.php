@@ -58,7 +58,7 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
 		$arrayElements[] = array("name" => "Topic", "type" => "ValidationTextBox",  "caption" => "Topic"); 
-		$arrayElements[] = array("name" => "CoverID", "type" => "SelectInstance",  "caption" => "Cover ID"); 
+		$arrayElements[] = array("name" => "CoverID", "type" => "SelectVariable",  "caption" => "Cover ID"); 
 		
 		
 		$arrayActions = array(); 
