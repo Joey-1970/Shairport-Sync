@@ -208,8 +208,8 @@
 						$this->SendDebug("ShowMQTTData", "Coverformat: keine Daten erhalten", 0);
 						
 					}
-					$this->SendDebug("ShowMQTTData", "Coverformat: ".$ImageData['mime'], 0);
-					$Content = GetValue($this->ReadPropertyInteger("CoverID"));
+					
+					$Content = $this->GetValue($this->ReadPropertyInteger("CoverID"));
 					
 					IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Content));  //Bild Base64 codieren und ablegen
 					IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
