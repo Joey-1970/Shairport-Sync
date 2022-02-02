@@ -12,6 +12,7 @@
 		$this->ConnectParent("{C6D2AEB3-6E1F-4B2E-8E69-3A1A00246850}");
             	$this->RegisterPropertyBoolean("Open", false);
 		$this->RegisterPropertyString("Topic", "Topic");
+		$this->RegisterPropertyInteger("CoverID", 0);
 		
 		// Profile anlegen
 		$this->RegisterMediaObject("Cover_".$this->InstanceID, "Cover_".$this->InstanceID, 1, $this->InstanceID, 200, true, "Cover.png");
@@ -57,6 +58,7 @@
 		$arrayElements = array(); 
 		$arrayElements[] = array("name" => "Open", "type" => "CheckBox",  "caption" => "Aktiv"); 
 		$arrayElements[] = array("name" => "Topic", "type" => "ValidationTextBox",  "caption" => "Topic"); 
+		$arrayElements[] = array("name" => "CoverID", "type" => "SelectInstance",  "caption" => "Cover ID"); 
 		
 		
 		$arrayActions = array(); 
@@ -199,10 +201,15 @@
 					$ImageData = @getimagesize('data://text/plain;base64' . base64_encode($Payload));
 					If (is_array($ImageData) == true) {
 						$this->SendDebug("ShowMQTTData", "Coverformat: ".$ImageData['mime'], 0);
+						$Content = $this->GetValue($this->ReadPropertyInteger("CoverID"));
 						IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Payload));  //Bild Base64 codieren und ablegen
 						IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 					} else {
 						$this->SendDebug("ShowMQTTData", "Coverformat: keine Daten erhalten", 0);
+						$this->SendDebug("ShowMQTTData", "Coverformat: ".$ImageData['mime'], 0);
+						$Content = $this->GetValue($this->ReadPropertyInteger("CoverID"));
+						IPS_SetMediaContent($this->GetIDForIdent("Cover_".$this->InstanceID), base64_encode($Content));  //Bild Base64 codieren und ablegen
+						IPS_SendMediaEvent($this->GetIDForIdent("Cover_".$this->InstanceID)); //aktualisieren
 					}
 					
 					break;
