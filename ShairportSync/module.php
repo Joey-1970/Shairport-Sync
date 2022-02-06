@@ -15,7 +15,7 @@
 		$this->RegisterPropertyInteger("CoverID", 0);
 		
 		// Profile anlegen
-		$this->RegisterMediaObject("Cover_".$this->InstanceID, "Cover_".$this->InstanceID, 1, $this->InstanceID, 200, true, "Cover");
+		$this->RegisterMediaObject("Cover", "Cover_".$this->InstanceID, 1, $this->InstanceID, 200, true, "Cover");
 		
 		$this->RegisterProfileInteger("ShairportSync.Remote", "Remote", "", "", 0, 3, 0);
 		IPS_SetVariableProfileAssociation("ShairportSync.Remote", 0, "I<", "Remote", -1);
