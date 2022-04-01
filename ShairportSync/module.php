@@ -129,7 +129,12 @@
 		$QualityOfService = utf8_decode($Data->QualityOfService);
 		$Retain = utf8_decode($Data->Retain);
 		$Topic = utf8_decode($Data->Topic);
-		$Payload = utf8_decode($Data->Payload);
+		$MainTopic = $this->ReadPropertyString("Topic");
+		If ($Topic <> $MainTopic."/cover") {
+			$Payload = utf8_decode($Data->Payload);
+		} else {
+			$Payload = $Data->Payload;
+		}
 		
 		//$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
 		
