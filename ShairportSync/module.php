@@ -133,7 +133,8 @@
 		If ($Topic <> $MainTopic."/cover") {
 			$Payload = utf8_decode($Data->Payload);
 		} else {
-			$Payload = $Data->Payload;
+			$Payload = utf8_decode($Data->Payload);
+			$this->SendDebug("ReceiveData", "Länge Payload: ".strlen($Payload), 0);
 		}
 		
 		//$this->SendDebug("ReceiveData", "PacketType: ".$PacketType." QualityOfService: ".$QualityOfService." Retain: ".$Retain." Topic: ".$Topic." Payload: ".$Payload, 0);
